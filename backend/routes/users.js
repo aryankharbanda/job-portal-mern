@@ -10,6 +10,7 @@ const validateLoginInput = require("../validation/login");
 
 // Load User model
 const User = require("../models/user.model");
+const Rprofile = require("../models/rprofile.model");
 
 
 // REGISTER
@@ -25,7 +26,8 @@ router.post("/register", (req, res) => {
     }
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
-        return res.status(400).json({ email: "Email already exists" });
+            alert("Email already registered")
+            return res.status(400).json({ email: "Email already exists" });
         } else {
         const newUser = new User({
             name: req.body.name,
@@ -44,6 +46,16 @@ router.post("/register", (req, res) => {
                 .catch(err => console.log(err));
             });
         });
+        
+        // create rprofile on register
+        if(req.body.type === "r"){
+            const newRprofile = new Rprofile({
+                name: req.body.name,
+                email: req.body.email
+            });
+            newRprofile.save();
+        }
+        
         }
     });
   });
@@ -96,7 +108,7 @@ router.post("/login", (req, res) => {
         }
         });
     });
-  });
+});
 
 // BOILERPLATE
 // GET request 

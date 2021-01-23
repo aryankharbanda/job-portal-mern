@@ -49,9 +49,9 @@ export default class Login extends Component {
       .then(function(res) {
         ls.set("auth", "true");
         console.log(res.data.user.name);
-        ls.set("username", res.data.user.name);
+        ls.set("name", res.data.user.name);
         ls.set("email", res.data.user.email);
-        ls.set("usertype", res.data.user.usertype);
+        ls.set("type", res.data.user.type);
         // window.location = "/";
     })
     // .catch(function(res) {

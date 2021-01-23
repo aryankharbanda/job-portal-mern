@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class Register extends Component {
+export default class CreateJob extends Component {
 
   constructor(props) {
     super(props);
@@ -23,34 +23,15 @@ export default class Register extends Component {
     }
   }
 
-  onChangeName(e) {
-    this.setState({
-      name: e.target.value
-    })
-  }
-  onChangeEmail(e) {
-    this.setState({
-      email: e.target.value
-    })
-  }
-  onChangeType(e) {
-    this.setState({
-      type: e.target.value
-    })
-  }
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value
-    })
-  }
-  onChangePassword2(e) {
-    this.setState({
-      password2: e.target.value
-    })
-  }
-  // onChange = e => {
-  //   this.setState({ [e.target.id]: e.target.value });
-  // };
+//   onChangeName(e) {
+//     this.setState({
+//       name: e.target.value
+//     })
+//   }
+
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
 
   onSubmit(e) {
     e.preventDefault();

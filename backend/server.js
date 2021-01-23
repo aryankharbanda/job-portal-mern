@@ -12,7 +12,6 @@ const DB_NAME = "mernassdb"
 app.use(cors());
 app.use(express.json());
 
-// const uri = "mongodb://ssad12:ssad12@cluster0-shard-00-00.ixsmq.mongodb.net:27017,cluster0-shard-00-01.ixsmq.mongodb.net:27017,cluster0-shard-00-02.ixsmq.mongodb.net:27017/ssaddb?ssl=true&replicaSet=atlas-ft7omt-shard-0&authSource=admin&retryWrites=true&w=majority"
 // DB Config
 const uri = require("./config/keys").mongoURI;
 try {
@@ -34,14 +33,18 @@ app.use(passport.initialize());
 // Passport config
 require("./config/passport")(passport);
 
-require('./models/user.model');
+// require('./models/user.model');
 
-var usersRouter = require('./routes/users');
 var testAPIRouter = require("./routes/testAPI");
+var usersRouter = require('./routes/users');
+var profileRouter = require("./routes/profile");
+var jobsRouter = require("./routes/jobs");
 
 // Routes
-app.use('/users', usersRouter);
 app.use("/testAPI", testAPIRouter);
+app.use('/users', usersRouter);
+app.use("/profile", profileRouter);
+app.use("/jobs", jobsRouter);
 
 // app.get('/', function(req, res){
 //   res.send('got /');

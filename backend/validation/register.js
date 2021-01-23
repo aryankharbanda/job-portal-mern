@@ -17,7 +17,7 @@ module.exports = function validateRegisterInput(data) {
   }
   // Type checks
   if (Validator.isEmpty(data.type)) {
-    errors.name = "Type of user field is required";
+    errors.type = "Type of user field is required";
   }
 // Email checks
   if (Validator.isEmpty(data.email)) {
