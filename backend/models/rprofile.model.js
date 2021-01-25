@@ -16,6 +16,7 @@ const RprofileSchema = new Schema({
 	},
 	bio: {
 		type: String,
+		maxlength: 250
 	},
 });
 

@@ -63,21 +63,25 @@ export default class Register extends Component {
       password2: this.state.password2,
     }
 
-    console.log(newUser);
+    // console.log(newUser);
 
-    axios.post('http://localhost:4000/users/register', newUser)
-    // axios.post('/users/register', newUser)
-      .then(function(res) {
+    axios.post('/users/register', newUser)
+      .then( res => {
         // console.log(res.data);
         alert("Registered Successfully");
-        if(this.state.type === "r"){
-          window.location = "/rprofile";
-        }
-				// window.location.reload();
+
+        // REDIRECT ON LOGIN
+        // if(this.state.type === "r"){
+        //   window.location = "/rprofile";
+        // }
+        
+        window.location.reload();
 			})
-			.catch(function(res) {
-				alert(res.response.data[Object.keys(res.response.data)[0]]);
+      .catch( err => {
+        alert(err.response.data[Object.keys(err.response.data)[0]]);
+        console.log(err.response);
       });
+      
       
     // if(this.state.type === "r"){
     //   window.location = "/rprofile";
@@ -117,11 +121,13 @@ export default class Register extends Component {
             <label>Type: </label>
             <select 
                 required 
+                placeholder="Type"
                 className="form-control"
                 value={this.state.type}
                 onChange={this.onChangeType}
               >
-              {/* <option value="" disabled> </option> */}
+              {/* <option value="" selected> </option> */}
+              <option value="" > </option>
               <option value="a">Applicant</option>
               <option value="r">Recruiter</option>
             </select>

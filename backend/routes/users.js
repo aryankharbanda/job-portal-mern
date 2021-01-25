@@ -26,7 +26,6 @@ router.post("/register", (req, res) => {
     }
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
-            alert("Email already registered")
             return res.status(400).json({ email: "Email already exists" });
         } else {
         const newUser = new User({
@@ -43,7 +42,7 @@ router.post("/register", (req, res) => {
             newUser
                 .save()
                 .then(user => res.json(user))
-                .catch(err => console.log(err));
+                .catch(err => res.json(err));
             });
         });
         
@@ -78,30 +77,35 @@ router.post("/login", (req, res) => {
         if (!user) {
         return res.status(404).json({ emailnotfound: "Email not found" });
         }
-    // Check password
+        // Check password
         bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
             // User matched
             // Create JWT Payload
             const payload = {
-            id: user.id,
-            name: user.name
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                type: user.type
             };
-    // Sign token
+            // Sign token
             jwt.sign(
-            payload,
-            keys.secretOrKey,
-            {
-                expiresIn: 31556926 // 1 year in seconds
-            },
-            (err, token) => {
-                res.json({
-                success: true,
-                token: "Bearer " + token
-                });
-            }
+                payload,
+                keys.secretOrKey,
+                {
+                    expiresIn: 31556926 // 1 year in seconds
+                },
+                (err, token) => {
+                    res.json({
+                    success: true,
+                    token: "Bearer " + token,
+                    user: user
+                    });
+                }
             );
-        } else {
+        } 
+        else 
+        {
             return res
             .status(400)
             .json({ passwordincorrect: "Password incorrect" });

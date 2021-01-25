@@ -4,18 +4,19 @@ import ls from "local-storage";
 
 export default class Navbar extends Component {
 
-  constructor() {
-		super();
-		// this.state = {
-		// 	search: ""
-		// };
-  }
+  // constructor() {
+	// 	super();
+	// 	// this.state = {
+	// 	// 	search: ""
+	// 	// };
+  // }
   
 	handleClickLogout(event) {
 		event.preventDefault();
 		ls.set("auth", "false");
-		ls.set("usertype", "");
+		ls.set("name", "");
 		ls.set("email", "");
+		ls.set("type", "");
 		window.location = "/";
 	}
 
@@ -37,10 +38,23 @@ export default class Navbar extends Component {
               <Link to="/login" className="nav-link">Login</Link>
             </li>
 						)}
+          {ls.get("type") === "r" ? (
+            <li className="navbar-item">
+              <Link to="/rprofile" className="nav-link">rProfile</Link>
+            </li>
+						) : null}
+          {ls.get("type") === "r" ? (
+            <li className="navbar-item">
+              <Link to="/createjob" className="nav-link">Add Job</Link>
+            </li>
+						) : null}
 
-          <li className="navbar-item">
-          <Link to="/rprofile" className="nav-link">Rprofile</Link>
-          </li>
+          {ls.get("type") === "a" ? (
+            <li className="navbar-item">
+              <Link to="/showjobs" className="nav-link">Job Listing</Link>
+            </li>
+						) : null}
+
           {ls.get("auth") === "true" ? (
 							<li className="nav-item">
 								<Link	className="nav-link" to="#"	onClick={this.handleClickLogout}>

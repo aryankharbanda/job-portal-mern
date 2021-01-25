@@ -8,8 +8,9 @@ import Welcome from "./components/welcome.component";
 import Navbar from "./components/navbar.component"
 import Register from "./components/register.component";
 import Login from "./components/login.component"
-import UsersList from "./components/users-list.component";
 import Rprofile from "./components/rprofile.component";
+import CreateJob from "./components/createjob.component";
+import ShowJobs from "./components/showjobs.component";
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/rprofile" component={Rprofile}/>
+        <Route path="/createjob" component={CreateJob}/>
+        <Route path="/showjobs" component={ShowJobs}/>
       </div>
     </Router>
   );
