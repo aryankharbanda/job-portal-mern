@@ -6,9 +6,12 @@ module.exports = function validateJobInput(data) {
 
     // Convert empty fields to an empty string so we can use validator functions
     data.title = !isEmpty(data.title) ? data.title : "";
-    data.rec_email = !isEmpty(data.rec_email) ? data.rec_email : "";
-    data.rec_name = !isEmpty(data.rec_name) ? data.rec_name : "";
     data.jobtype = !isEmpty(data.jobtype) ? data.jobtype : "";
+    data.max_positions = !isEmpty(data.max_positions) ? data.max_positions : "";
+    data.max_applications = !isEmpty(data.max_applications) ? data.max_applications : "";
+    data.duration = !isEmpty(data.duration) ? data.duration : "";
+    data.deadline = !isEmpty(data.deadline) ? data.deadline : "";
+    data.salary = !isEmpty(data.salary) ? data.salary : "";
 
     // Title checks
     if (Validator.isEmpty(data.title)) {
@@ -17,6 +20,21 @@ module.exports = function validateJobInput(data) {
     // Type checks
     if (Validator.isEmpty(data.jobtype)) {
         errors.jobtype = "Jobtype is required";
+    }
+    if (Validator.isEmpty(data.max_positions)) {
+        errors.max_positions = "Max positions is required";
+    }
+    if (Validator.isEmpty(data.max_applications)) {
+        errors.max_applications = "Max applications is required";
+    }
+    if (Validator.isEmpty(data.duration)) {
+        errors.duration = "Duration is required";
+    }
+    if (Validator.isEmpty(data.deadline)) {
+        errors.deadline = "Deadline is required";
+    }
+    if (Validator.isEmpty(data.salary)) {
+        errors.salary = "Salary is required";
     }
 
     if(isNaN(data.duration)) {
@@ -38,6 +56,11 @@ module.exports = function validateJobInput(data) {
     if((data.max_applications<0)) {
         errors.max_applications = "Maximum applications should be a positive number";
     }
+
+    if((data.max_applications<data.max_positions)) {
+        errors.max_applications = "Maximum applications should not be less than maximum positions";
+    }
+
     if(isNaN(data.salary)) {
         errors.salary = "Salary should be a number";
     }

@@ -39,7 +39,7 @@ export default class ShowJobs extends Component {
             maxsal:'',
             duration:'',
             search:'',
-            showalert:false,
+            // showalert:false,
         };
 
         this.sortChangeSal = this.sortChangeSal.bind(this);
@@ -57,7 +57,7 @@ export default class ShowJobs extends Component {
 	}
 
     componentDidMount() {
-        axios.get('http://localhost:4000/jobs')
+        axios.get('/jobs')
             .then(response => {
                 this.setState({jobs: response.data, ogJobs:response.data});
             })
@@ -172,7 +172,7 @@ export default class ShowJobs extends Component {
     };
 
     handleApply(jobid) {
-        console.log(this.state.showalert);
+        // console.log(this.state.showalert);
         
         console.log("apply");
         // if(this.state.showalert){
@@ -189,7 +189,7 @@ export default class ShowJobs extends Component {
             axios.post('/jobs/apply', newApplication)
                 .then( res => {
                     alert("Applied Successfully");
-                    this.setState({showalert:false});
+                    // this.setState({showalert:false});
                 })
                 .catch( err => {
                     alert(err.response.data[Object.keys(err.response.data)[0]]);
@@ -204,7 +204,7 @@ export default class ShowJobs extends Component {
     }
 
 	render() {
-        console.log(this.state.showalert);
+        // console.log(this.state.showalert);
 		return (
 			<div>
                 <Grid container>

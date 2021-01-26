@@ -11,6 +11,7 @@ const validateLoginInput = require("../validation/login");
 // Load User model
 const User = require("../models/user.model");
 const Rprofile = require("../models/rprofile.model");
+const Aprofile = require("../models/aprofile.model");
 
 
 // REGISTER
@@ -28,33 +29,62 @@ router.post("/register", (req, res) => {
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
         } else {
-        const newUser = new User({
-            name: req.body.name,
-            email: req.body.email,
-            type: req.body.type,
-            password: req.body.password
-        });
-    // Hash password before saving in database
-        bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if (err) throw err;
-            newUser.password = hash;
-            newUser
-                .save()
-                .then(user => res.json(user))
-                .catch(err => res.json(err));
-            });
-        });
-        
-        // create rprofile on register
-        if(req.body.type === "r"){
-            const newRprofile = new Rprofile({
+            // let id = "id";
+            const newUser = new User({
                 name: req.body.name,
-                email: req.body.email
+                email: req.body.email,
+                type: req.body.type,
+                password: req.body.password
             });
-            newRprofile.save();
-        }
-        
+            
+            // Hash password before saving in database
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                if (err) throw err;
+                newUser.password = hash;
+                newUser
+                    .save()
+                    .then(user => {
+                        res.json(user);
+
+                        // create rprofile on register
+                        if(req.body.type === "r"){
+                            const newRprofile = new Rprofile({
+                                name: req.body.name,
+                                email: req.body.email
+                            });
+                            newRprofile.save();
+                        }
+                        // create aprofile on register
+                        if(req.body.type === "a"){
+                            const newAprofile = new Aprofile({
+                                name: req.body.name,
+                                email: req.body.email
+                            });
+                            newAprofile
+                                .save()
+                                .then(aprofile => {
+                                    User.findByIdAndUpdate(
+                                        user._id,
+                                        { $set:{aprofileId: aprofile._id}},
+                                        (err,user) => {
+                                            if (err){ 
+                                                console.log(err) 
+                                            } 
+                                            else{ 
+                                                console.log("aprofile created"); 
+                                            } 
+                                        }
+                                    );  
+                                })
+                                .catch(err => console.log(err));
+                        }
+
+                    })
+                    .catch(err => res.json(err));
+                });
+            });
+            
         }
     });
   });

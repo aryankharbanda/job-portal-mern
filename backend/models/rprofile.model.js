@@ -20,4 +20,4 @@ const RprofileSchema = new Schema({
 	},
 });
 
-module.exports = Rprofile = mongoose.model("rprofile", RprofileSchema);
+module.exports = Rprofile = mongoose.model("rprofiles", RprofileSchema);

@@ -60,7 +60,7 @@ export default class CreateJob extends Component {
 			max_positions: this.state.max_positions,
 			max_applications: this.state.max_applications,
 			duration: this.state.duration,
-			// deadline: '',
+			deadline: this.state.deadline,
 			jobtype: this.state.jobtype,
 			salary: this.state.salary,
 		}
@@ -198,7 +198,7 @@ export default class CreateJob extends Component {
 									type="submit"
 									// className="btn btn-large waves-effect waves-light hoverable blue accent-3"
 								>
-									Add Product
+									Add Job to Listing
 								</button>
 							</div>
 						</form>

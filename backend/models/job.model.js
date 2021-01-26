@@ -41,7 +41,15 @@ const JobSchema = new Schema({
 	salary: {
 		type: Number,
 		required: true
-	}
+	},
+    no_applications:{
+		type: Number,
+        default: 0
+    },
+    no_positions:{
+		type: Number,
+        default: 0
+    }
 
 });
 

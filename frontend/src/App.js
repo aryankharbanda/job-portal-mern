@@ -11,6 +11,10 @@ import Login from "./components/login.component"
 import Rprofile from "./components/rprofile.component";
 import CreateJob from "./components/createjob.component";
 import ShowJobs from "./components/showjobs.component";
+import MyApps from "./components/myapps.component";
+import MyJobs from "./components/myjobs.component";
+import ListApplications from "./components/listapplications.component";
+import Aprofile from "./components/aprofile.component";
 
 function App() {
   return (
@@ -29,6 +33,10 @@ function App() {
         <Route path="/rprofile" component={Rprofile}/>
         <Route path="/createjob" component={CreateJob}/>
         <Route path="/showjobs" component={ShowJobs}/>
+        <Route path="/myapps" component={MyApps}/>
+        <Route path="/myjobs" component={MyJobs}/>
+        <Route path="/listapplications" component={ListApplications}/>
+        <Route path="/aprofile" component={Aprofile}/>
       </div>
     </Router>
   );
